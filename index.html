@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北师香港浸会大学 · 校园服务</title>
+  <link rel="stylesheet" href="css/styles.css?v=3">
+</head>
+<body class="mode-map">
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo-mark" aria-hidden="true">BNBU</div>
+        <div class="logo-text">
+          <span class="school-name-cn">北师香港浸会大学</span>
+          <span class="school-name-en">Beijing Normal-Hong Kong Baptist University</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main">
+    <section id="view-home" class="view view-fullscreen-map active">
+      <div class="fullscreen-map-layer map-fixed">
+        <img src="assets/campus-map.jpg" alt="北师香港浸会大学校园地图" class="map-bg-cover">
+        <div class="home-markers-layer" id="home-markers-layer" aria-hidden="false"></div>
+        <div class="home-overlay-buttons">
+          <button class="btn-primary nav-btn" data-nav="lost-found">失物招领</button>
+          <button class="btn-primary nav-btn" data-nav="faculties">学部介绍</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-lost-found" class="view view-fullscreen-map">
+      <div class="map-floating-toolbar">
+        <button class="btn-back" data-back="home">← 返回</button>
+        <div class="filter-bar">
+          <label>筛选：</label>
+          <select id="lost-filter">
+            <option value="all">全部</option>
+            <option value="lost">未寻回</option>
+            <option value="found">已寻回</option>
+          </select>
+        </div>
+        <button class="btn-secondary" id="btn-submit-lost">登记失物</button>
+      </div>
+      <p class="map-hint">点击蓝色建筑区域查看 / 登记失物 · 细柱高度表示该区域积累数量</p>
+      <div class="fullscreen-map-layer map-fixed interactive">
+        <div class="map-viewport map-viewport-fixed" id="lost-map-viewport">
+          <img src="assets/campus-map.jpg" alt="校园地图" class="map-bg-cover" draggable="false">
+          <div class="map-overlay-layer" id="pillars-layer"></div>
+          <div class="map-overlay-layer" id="hotspots-layer"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-faculties" class="view view-content">
+      <div class="view-toolbar simple">
+        <button class="btn-back" data-back="home">← 返回</button>
+      </div>
+      <div class="faculty-grid" id="faculty-grid"></div>
+      <p class="content-footer-note">© 2026 Beijing Normal-Hong Kong Baptist University</p>
+    </section>
+
+    <section id="view-scc-faculty" class="view view-content">
+      <div class="view-toolbar simple">
+        <button class="btn-back" data-back="faculties">← 返回</button>
+        <h2 class="page-subtitle">文化与创意学部（SCC）师资介绍</h2>
+      </div>
+      <div class="faculty-list" id="scc-faculty-list"></div>
+    </section>
+  </main>
+
+  <!-- 单条失物详情 -->
+  <div class="modal-overlay hidden" id="item-modal">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="关闭">×</button>
+      <div id="item-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 地点失物列表 -->
+  <div class="modal-overlay hidden" id="location-modal">
+    <div class="modal-card modal-location">
+      <button class="modal-close" aria-label="关闭">×</button>
+      <h3 id="location-modal-title"></h3>
+      <p class="location-stats" id="location-stats"></p>
+      <ul class="location-items-list" id="location-items-list"></ul>
+      <button type="button" class="btn-primary btn-block" id="btn-add-at-location">在此登记失物</button>
+    </div>
+  </div>
+
+  <!-- 提交失物表单 -->
+  <div class="modal-overlay hidden" id="submit-modal">
+    <div class="modal-card modal-form">
+      <button class="modal-close" aria-label="关闭">×</button>
+      <h3>登记失物信息</h3>
+      <p class="form-location-hint" id="form-location-hint">请选择地图上的建筑区域</p>
+      <form id="submit-lost-form">
+        <input type="hidden" name="locationId" id="form-location-id">
+        <label>丢失地点
+          <select name="locationSelect" id="form-location-select" required>
+            <option value="">— 请选择建筑 —</option>
+          </select>
+        </label>
+        <label>物品名称 <input type="text" name="name" required></label>
+        <label>丢失时间 <input type="datetime-local" name="lostTime" required></label>
+        <label>失主联系方式 <input type="text" name="contact" required placeholder="电话或邮箱"></label>
+        <label>详细说明 <input type="text" name="note" placeholder="可选"></label>
+        <div class="form-actions">
+          <button type="button" class="btn-ghost modal-cancel">取消</button>
+          <button type="submit" class="btn-primary">提交</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/data.js?v=3"></script>
+  <script src="js/map-coords.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>

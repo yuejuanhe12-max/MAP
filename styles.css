@@ -1,0 +1,1070 @@
+/* 北师香港浸会大学 · 校园服务 — 品牌与布局 */
+
+:root {
+  --bnbu-blue: #1a4b8c;
+  --bnbu-blue-hover: #153d72;
+  --bnbu-blue-light: #3d7ab8;
+  --bnbu-yellow: #f5c518;
+  --bnbu-found: #3d7ab8;
+  --text-dark: #1a1a1a;
+  --text-body: #333;
+  --bg-gray: #f0f2f5;
+  --card-gray: #e8eaed;
+  --icon-gray: #9aa0a6;
+  --white: #fff;
+  --shadow: 0 4px 20px rgba(26, 75, 140, 0.12);
+  --header-h: 72px;
+  --footer-h: 80px;
+  --radius: 12px;
+  --transition: 0.2s ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-body);
+  background: var(--bg-gray);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body.mode-map {
+  overflow: hidden;
+  background: #1a3a5c;
+}
+
+/* ---------- 页眉 ---------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--bnbu-blue);
+  box-shadow: var(--shadow);
+  height: var(--header-h);
+}
+
+/* 地图页：小浮标，不挡地图 */
+body.mode-map .site-header {
+  top: 10px;
+  left: 10px;
+  right: auto;
+  width: auto;
+  max-width: calc(100% - 24px);
+  height: auto;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: none;
+  border-bottom: none;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+body.mode-map .header-inner {
+  padding: 0;
+}
+
+body.mode-map .logo-mark {
+  width: 32px;
+  height: 32px;
+  font-size: 10px;
+}
+
+body.mode-map .school-name-cn {
+  font-size: 0.8rem;
+}
+
+body.mode-map .school-name-en {
+  display: none;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-mark {
+  width: 48px;
+  height: 48px;
+  background: var(--bnbu-blue);
+  color: var(--white);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.school-name-cn {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--bnbu-blue);
+  line-height: 1.2;
+}
+
+.school-name-en {
+  font-size: 0.7rem;
+  color: var(--icon-gray);
+  line-height: 1.2;
+}
+
+/* ---------- 主内容 ---------- */
+#app-main {
+  flex: 1;
+  position: relative;
+}
+
+body.mode-content #app-main {
+  margin-top: var(--header-h);
+}
+
+body.mode-map #app-main {
+  margin: 0;
+  flex: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.view {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.view.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- 全屏地图 ---------- */
+.view-fullscreen-map {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.fullscreen-map-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.map-bg-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* 地图页完整显示手绘图（含底部图例），不被裁切 */
+body.mode-map .map-bg-cover {
+  object-fit: contain;
+  object-position: center center;
+  background: #c5dbb8;
+}
+
+/* 一级界面按钮 */
+.home-overlay-buttons {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8%;
+  pointer-events: none;
+}
+
+/* 主界面红色入口点 */
+.home-markers-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 18;
+  pointer-events: none;
+}
+
+.home-red-marker,
+.item-pillar,
+.location-hotspot {
+  position: absolute;
+}
+
+.home-red-marker {
+  width: 18px;
+  height: 18px;
+  background: #e53935;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 10px rgba(229, 57, 53, 0.65);
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+.home-red-marker::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(229, 57, 53, 0.92);
+  padding: 4px 8px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.home-red-marker:hover::after {
+  opacity: 1;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.55); }
+  50% { box-shadow: 0 0 0 10px rgba(229, 57, 53, 0); }
+}
+
+.home-overlay-buttons .nav-btn {
+  pointer-events: auto;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- 按钮 ---------- */
+.btn-primary,
+.btn-secondary,
+.btn-back,
+.btn-ghost {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.btn-primary {
+  background: var(--bnbu-blue);
+  color: var(--white);
+  padding: 14px 36px;
+  border-radius: var(--radius);
+  font-size: 1.05rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(26, 75, 140, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--bnbu-blue-hover);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(26, 75, 140, 0.45);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--bnbu-blue);
+  color: var(--white);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background: var(--bnbu-blue-hover);
+  transform: scale(1.03);
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--bnbu-blue);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.btn-back:hover {
+  background: rgba(26, 75, 140, 0.08);
+}
+
+.btn-ghost {
+  background: var(--card-gray);
+  color: var(--text-body);
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.btn-ghost:hover {
+  background: #dde0e4;
+}
+
+/* ---------- 工具栏 ---------- */
+.view-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--white);
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.view-toolbar.simple {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.filter-bar label {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.filter-bar select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  min-width: 120px;
+}
+
+.view-toolbar .btn-secondary {
+  margin-left: auto;
+}
+
+.page-subtitle {
+  color: var(--bnbu-blue);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* ---------- 失物地图交互 ---------- */
+#view-lost-found .fullscreen-map-layer.interactive {
+  top: 0;
+}
+
+.map-floating-toolbar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  z-index: 50;
+  max-width: min(520px, calc(100% - 180px));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(26, 75, 140, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.map-floating-toolbar .btn-secondary {
+  margin-left: auto;
+}
+
+.map-fixed {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+.map-viewport-fixed {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: default;
+  background: #2a4a6e;
+}
+
+.map-overlay-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#hotspots-layer {
+  z-index: 25;
+  pointer-events: auto;
+}
+
+#pillars-layer {
+  z-index: 15;
+}
+
+.map-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  font-size: 0.8rem;
+  color: var(--white);
+  background: rgba(26, 75, 140, 0.75);
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 半透明积累细柱 */
+.item-pillar {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+
+.pillar-bar {
+  width: 10px;
+  height: var(--pillar-h, 60px);
+  border-radius: 4px 4px 2px 2px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.pillar-lost .pillar-bar {
+  background: linear-gradient(
+    to top,
+    rgba(245, 197, 24, 0.85),
+    rgba(245, 197, 24, 0.35)
+  );
+}
+
+.pillar-found .pillar-bar {
+  background: linear-gradient(
+    to top,
+    rgba(61, 122, 184, 0.85),
+    rgba(61, 122, 184, 0.35)
+  );
+}
+
+.pillar-count {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  background: rgba(26, 75, 140, 0.7);
+  padding: 2px 6px;
+  border-radius: 8px;
+  line-height: 1.2;
+}
+
+/* 蓝色建筑可点击热区（默认透明，悬停时对齐提示） */
+.location-hotspot {
+  position: absolute;
+  border: 2px solid transparent;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.location-hotspot:hover,
+.location-hotspot:focus-visible {
+  background: rgba(61, 122, 184, 0.22);
+  border-color: rgba(26, 75, 140, 0.75);
+  box-shadow: 0 0 0 3px rgba(26, 75, 140, 0.2);
+  outline: none;
+}
+
+.hotspot-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--white);
+  background: rgba(26, 75, 140, 0.9);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.location-hotspot:hover .hotspot-label,
+.location-hotspot:focus-visible .hotspot-label {
+  opacity: 1;
+}
+
+/* 地点列表弹窗 */
+.modal-location {
+  max-width: 440px;
+}
+
+.location-stats {
+  font-size: 0.9rem;
+  color: var(--icon-gray);
+  margin-bottom: 16px;
+}
+
+.location-items-list {
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.location-items-list li {
+  margin-bottom: 8px;
+}
+
+.location-item-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  background: var(--white);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.location-item-btn:hover {
+  border-color: var(--bnbu-blue);
+  background: rgba(26, 75, 140, 0.05);
+}
+
+.location-item-btn .item-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.empty-hint {
+  padding: 16px;
+  text-align: center;
+  color: var(--icon-gray);
+  font-size: 0.9rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.form-location-hint {
+  font-size: 0.9rem;
+  color: var(--bnbu-blue);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.status-badge.lost {
+  background: rgba(245, 197, 24, 0.25);
+  color: #8a6d00;
+}
+
+.status-badge.found {
+  background: rgba(61, 122, 184, 0.2);
+  color: var(--bnbu-blue);
+}
+
+.view-content {
+  min-height: calc(100vh - var(--header-h));
+  padding-bottom: 24px;
+}
+
+.content-footer-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--icon-gray);
+  padding: 24px 16px 8px;
+}
+
+.view-content.active {
+  display: block;
+  padding-bottom: 24px;
+}
+
+/* ---------- 学部卡片网格 ---------- */
+.faculty-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.faculty-card {
+  background: var(--card-gray);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.faculty-card.clickable {
+  cursor: pointer;
+}
+
+.faculty-card.clickable:hover,
+.faculty-card.clickable:focus-visible {
+  transform: translateY(-6px);
+  border-color: var(--bnbu-blue);
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.faculty-card.static {
+  opacity: 0.92;
+  cursor: default;
+}
+
+.faculty-card-logo {
+  width: 56px;
+  height: 56px;
+  background: var(--bnbu-blue);
+  color: var(--white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.faculty-card-title {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.faculty-card-code {
+  font-size: 0.8rem;
+  color: var(--icon-gray);
+  margin-bottom: 12px;
+}
+
+.faculty-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.faculty-card-hint {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--bnbu-blue);
+  font-weight: 500;
+}
+
+.faculty-card-hint.muted {
+  color: var(--icon-gray);
+}
+
+/* ---------- SCC 师资卡片 ---------- */
+.faculty-list {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.teacher-card {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 32px;
+  align-items: start;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.teacher-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--bnbu-blue);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.teacher-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+}
+
+.teacher-module {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.teacher-module h4 {
+  font-size: 0.85rem;
+  color: var(--icon-gray);
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.teacher-module p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 4px;
+}
+
+.module-icon {
+  font-size: 1.25rem;
+  filter: grayscale(1);
+  opacity: 0.55;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.email-link {
+  color: var(--bnbu-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
+.teacher-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.teacher-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: var(--card-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--bnbu-blue);
+  letter-spacing: 2px;
+  border: 4px solid #e0e4e8;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.teacher-avatar.has-photo {
+  font-size: 0;
+  letter-spacing: 0;
+}
+
+.teacher-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- 弹窗 ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.25s ease;
+}
+
+.modal-form {
+  max-width: 480px;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--icon-gray);
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--text-dark);
+  background: var(--card-gray);
+}
+
+.modal-card h3 {
+  color: var(--bnbu-blue);
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.modal-card dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  font-size: 0.95rem;
+}
+
+.modal-card dt {
+  font-weight: 600;
+  color: var(--icon-gray);
+}
+
+.modal-card dd {
+  color: var(--text-body);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.status-badge.lost {
+  background: rgba(245, 197, 24, 0.25);
+  color: #8a6d00;
+}
+
+.status-badge.found {
+  background: rgba(61, 122, 184, 0.2);
+  color: var(--bnbu-blue);
+}
+
+#submit-lost-form label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+#submit-lost-form input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1024px) {
+  .teacher-card {
+    grid-template-columns: 1fr 160px;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .teacher-avatar {
+    width: 150px;
+    height: 150px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-h: 64px;
+  }
+
+  .school-name-en {
+    display: none;
+  }
+
+  .home-overlay-buttons {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .map-floating-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .map-floating-toolbar .btn-secondary {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+  }
+
+  .view-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .view-toolbar .btn-secondary {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .faculty-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .teacher-card {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-avatar-wrap {
+    order: -1;
+  }
+
+  .teacher-avatar {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+}
+
+@media (max-width: 375px) {
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    font-size: 11px;
+  }
+
+  .school-name-cn {
+    font-size: 0.95rem;
+  }
+
+  .teacher-name {
+    font-size: 1.4rem;
+  }
+
+  .teacher-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .view-toolbar,
+  .header-inner {
+    max-width: 1600px;
+  }
+}
